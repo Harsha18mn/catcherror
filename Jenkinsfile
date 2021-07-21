@@ -1,8 +1,8 @@
 pipeline {
-	agent none  
+	agent any  
 	stages {
 		stage('BUILD') {
-      		agent {label 'tag1'}
+      		//agent {label 'tag1'}
 			steps {
 				catcherror (buildResult : 'SUCCESS', stageResult : 'FAILURE') {
 					echo "build"
@@ -12,7 +12,7 @@ pipeline {
 			}	
 		}
 		stage('TEST') {
-      		agent {label 'tag2'}
+      		//agent {label 'tag2'}
 			steps {
 					echo "test"
 			}	

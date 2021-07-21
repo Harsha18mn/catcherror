@@ -1,59 +1,22 @@
 pipeline {
-	agent {label 'mast'}  
+	agent none  
 	stages {
 		stage('BUILD') {
-      agent {label 'tag2'}
+      		agent {label 'tag1'}
 			steps {
-				sh '''
-					pwd
-					sleep 5
-					echo This is the fist stage: BUILD
-				'''
+				catcherror (buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+					echo "build"
+					sh 'sleep 15'
+					sh 'exit 1'
+				}
 			}	
 		}
-		
 		stage('TEST') {
-      agent {label 'tag1'}
+      		agent {label 'tag2'}
 			steps {
-				sh '''
-					pwd
-					sleep 5
-					echo This is the fist stage: TEST
-				'''
+					echo "test"
 			}	
 		}
 		
-		stage('DEPLOY') {
-     			//agent any
-			parallel {
-				stage('deploy1') {
-					agent {label 'tag1'}
-					steps {
-						sh '''
-						sleep 15
-						echo This is the fist stage: DEPLOY1
-						'''
-					}
-				}
-				stage('deploy2') {
-					agent {label 'tag2'}
-					steps {
-						sh '''
-						sleep 15
-						echo This is the fist stage: DEPLOY2
-						'''
-					}
-				}
-				stage('deploy3') {
-					agent {label 'mast'}
-					steps {
-						sh '''
-						sleep 15
-						echo This is the fist stage: DEPLOY3
-						'''
-					}
-				}
-			}
-		}
 	}
 }

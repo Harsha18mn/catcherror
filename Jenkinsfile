@@ -4,7 +4,7 @@ pipeline {
 		stage('BUILD') {
       		//agent {label 'tag1'}
 			steps {
-				catcherror (buildResult : 'SUCCESS', stageResult : 'FAILURE') {
+				catcherror (buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 					echo "build"
 					sh 'sleep 15'
 					sh 'exit 1'
